@@ -1,16 +1,70 @@
-# Vue 3 + TypeScript + Vite
+# Vue3-huohuo-admin
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+**English** | [中文](./README.zh-CN.md)
 
-## Recommended IDE Setup
+## introduce
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+......
 
-## Type Support For `.vue` Imports in TS
+## Usage
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+Note: After clone project, remember to check whether the project path is correct before using, use `cd xxx` to enter the file, use `cd ...` Returns a layer above the file
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+- Installation dependencies
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+```bash
+cd vue-pure-admin
+
+pnpm install
+
+```
+
+- run
+
+```bash
+pnpm serve
+```
+
+- build
+
+```bash
+pnpm build
+```
+
+## Submit code
+
+### Submit the order
+
+① git add .
+
+② git commit -m 'fix: For example, note that there is a space in front, otherwise the validation fails'
+
+If you want to skip submitting code validation, replace the previous line with this
+
+② git commit -m "fix: test" --no-verify
+
+③ git push
+
+### Submit specifications
+
+Reference [vue] (<https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md>) - Specification ([Angular](<https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog>- angular))
+
+- `feat` Adds a new function
+- `fix` Fixes problems/bugs
+- `style` code style correlation does not affect the run result
+- `perf` optimization/performance improvement
+- `refactor` refactoring
+- `revert` reverses the change
+- `test` Tests related
+- `docs` documents/comments
+- `chore` dependency updates/scaffold configuration modifications, etc
+- `workflow` Workflow improvements
+- `CI` continuous integration
+- `types` Type definition file changes
+- `WIP` under development
+
+## Browser support
+
+Chrome 80+ is recommended for local development
+
+Modern browsers are supported, IE is not supported
