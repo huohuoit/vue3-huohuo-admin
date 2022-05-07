@@ -66,5 +66,10 @@
   "bugs": {
     "url": "https://github.com/huohuoit/vue3-huohuo-admin/issues"
   },
+    "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "homepage": "https://github.com/huohuoit/vue3-huohuo-admin#readme"
 }
