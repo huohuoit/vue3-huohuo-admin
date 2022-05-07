@@ -13,10 +13,7 @@ Note: After clone project, remember to check whether the project path is correct
 - Installation dependencies
 
 ```bash
-cd vue-pure-admin
-
 pnpm install
-
 ```
 
 - run

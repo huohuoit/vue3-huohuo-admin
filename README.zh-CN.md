@@ -13,10 +13,7 @@
 - 安装依赖
 
 ```bash
-cd vue-pure-admin
-
 pnpm install
-
 ```
 
 - 运行
