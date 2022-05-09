@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "cross-env --max_old_space_size=4096 vite",
     "serve": "pnpm dev",
-    "build": "vue-tsc --noEmit && cross-env vite build",
+    "build": "rimraf dist && cross-env vite build",
+    "build:staging": "rimraf dist && cross-env vite build --mode staging",
     "log": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
@@ -43,6 +44,7 @@
     "postcss-scss": "^4.0.4",
     "prettier": "^2.6.2",
     "pretty-quick": "^3.1.3",
+    "rimraf": "^3.0.2",
     "stylelint": "^14.8.2",
     "stylelint-config-html": "^1.0.0",
     "stylelint-config-prettier": "^9.0.3",
