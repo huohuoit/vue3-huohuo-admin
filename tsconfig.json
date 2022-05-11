@@ -34,7 +34,8 @@
     "src/**/*.vue",
     "types/*.d.ts",
     "mock/*.ts",
-    "vite.config.ts"
+    "vite.config.ts",
+    "build"
   ],
   "exclude": ["node_modules", "dist", "**/*.js"]
 }
