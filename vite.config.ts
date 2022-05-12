@@ -2,7 +2,7 @@ import { resolve } from "path";
 import { wrapperEnv } from "./build/utils";
 import { UserConfigExport, ConfigEnv, loadEnv } from "vite";
 import { createProxy } from "./build/vite/proxy";
-import { createVitePlugins } from "@build/vite/plugins";
+import { createVitePlugins } from "./build/vite/plugins";
 
 // 当前执行node命令时文件夹的地址（工作目录）
 const root: string = process.cwd();
