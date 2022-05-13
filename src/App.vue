@@ -5,6 +5,7 @@ import { Test } from "./components/ReTest";
 <template>
   <div>
     <Test />
+    <el-button type="primary">lalala</el-button>
   </div>
 </template>
 
