@@ -13,7 +13,7 @@ function changeMsg() {
 </script>
 
 <template>
-  <h1>example...</h1>
+  <h1 class="text-pink-300">example...</h1>
   <h2>{{ message }}</h2>
   <el-button @click="useMsg">测试store的msg</el-button>
   <el-button @click="changeMsg">测试store的handleMsg</el-button>
