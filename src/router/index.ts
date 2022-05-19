@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory, Router } from "vue-router";
 
-import exampleRouter from "./modules/example";
+import globalRouter from "./modules/global";
 
-const routes = [exampleRouter];
+const routes = [globalRouter];
 
 // 创建路由实例
 export const router: Router = createRouter({

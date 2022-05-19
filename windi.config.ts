@@ -1,11 +1,13 @@
 import { defineConfig } from "windicss/helpers";
 import colors from "windicss/colors";
-import plugin from "windicss/plugin";
 
 export default defineConfig({
   darkMode: "class", // or 'media'
   theme: {
     extend: {
+      zIndex: {
+        "-1": "-1"
+      },
       screens: {
         sm: "640px",
         md: "768px",
@@ -19,6 +21,20 @@ export default defineConfig({
         red: colors.rose,
         pink: colors.fuchsia
       },
+      fontSize: {
+        xs: ".75rem",
+        sm: ".875rem",
+        tiny: ".875rem",
+        base: "1rem",
+        lg: "1.125rem",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem",
+        "4xl": "2.25rem",
+        "5xl": "3rem",
+        "6xl": "4rem",
+        "7xl": "5rem"
+      },
       fontFamily: {
         sans: ["Graphik", "sans-serif"],
         serif: ["Merriweather", "serif"]
@@ -29,66 +45,33 @@ export default defineConfig({
       },
       borderRadius: {
         "4xl": "2rem"
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: "65ch",
+            color: "inherit",
+            a: {
+              color: "inherit",
+              opacity: 0.75,
+              fontWeight: "500",
+              textDecoration: "underline",
+              "&:hover": {
+                opacity: 1,
+                color: colors.teal[600]
+              }
+            },
+            b: { color: "inherit" },
+            strong: { color: "inherit" },
+            em: { color: "inherit" },
+            h1: { color: "inherit" },
+            h2: { color: "inherit" },
+            h3: { color: "inherit" },
+            h4: { color: "inherit" },
+            code: { color: "inherit" }
+          }
+        }
       }
     }
-  },
-  plugins: [
-    // 添加静态工具类
-    plugin(({ addUtilities }) => {
-      const newUtilities = {
-        ".skew-10deg": {
-          transform: "skewY(-10deg)"
-        },
-        ".skew-15deg": {
-          transform: "skewY(-15deg)"
-        }
-      };
-      addUtilities(newUtilities);
-    }),
-    // 添加组件
-    plugin(({ addComponents }) => {
-      const buttons = {
-        ".btn": {
-          padding: ".5rem 1rem",
-          borderRadius: ".25rem",
-          fontWeight: "600"
-        },
-        ".btn-blue": {
-          backgroundColor: "#3490dc",
-          color: "#fff",
-          "&:hover": {
-            backgroundColor: "#2779bd"
-          }
-        },
-        ".btn-red": {
-          backgroundColor: "#e3342f",
-          color: "#fff",
-          "&:hover": {
-            backgroundColor: "#cc1f1a"
-          }
-        }
-      };
-      addComponents(buttons);
-    }),
-    plugin(({ addDynamic, variants }) => {
-      addDynamic(
-        "skew",
-        ({ Utility, Style }) => {
-          return Utility.handler
-            .handleStatic(Style("skew"))
-            .handleNumber(0, 360, "int", number => `skewY(-${number}deg)`)
-            .createProperty("transform");
-        },
-        variants("skew")
-      );
-    }),
-    require("windicss/plugin/filters"),
-    require("windicss/plugin/forms"),
-    require("windicss/plugin/aspect-ratio"),
-    require("windicss/plugin/line-clamp"),
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require("windicss/plugin/typography")({
-      modifiers: ["DEFAULT", "sm", "lg", "red"]
-    })
-  ]
+  }
 });
