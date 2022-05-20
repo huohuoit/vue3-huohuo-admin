@@ -2,8 +2,7 @@
 import { ref, reactive } from "vue";
 import Motion from "../utils/motion";
 import { phoneRules } from "../utils/rule";
-import { message } from "@pureadmin/components";
-import type { FormInstance } from "element-plus";
+import { ElMessage, FormInstance } from "element-plus";
 import { useVerifyCode } from "../utils/verifyCode";
 import { useUserStoreHook } from "/@/store/modules/user";
 import { useRenderIcon } from "/@/components/ReIcon/src/hooks";
@@ -23,7 +22,11 @@ const onLogin = async (formEl: FormInstance | undefined) => {
     if (valid) {
       // 模拟登陆请求，需根据实际开发进行修改
       setTimeout(() => {
-        message.success("登陆成功");
+        ElMessage({
+          type: "success",
+          message: "登录成功",
+          center: true
+        });
         loading.value = false;
       }, 2000);
     } else {
