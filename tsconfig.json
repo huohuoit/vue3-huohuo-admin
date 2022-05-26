@@ -25,7 +25,12 @@
       "@build/*": ["build/*"],
       "/#/*": ["types/*"]
     },
-    "types": ["node", "vite/client"], // 如果你使用element-plus，记得在这里添加"element-plus/global"
+    "types": [
+      "node",
+      "vite/client",
+      "element-plus/global",
+      "unplugin-vue-define-options"
+    ],
     "typeRoots": ["./node_modules/@types/", "./types"] // 声明文件目录，为我们提供代码提示
   },
   "include": [

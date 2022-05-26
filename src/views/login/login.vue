@@ -1,12 +1,17 @@
 <!-- 登录页主页 -->
 <script setup lang="ts">
 import Motion from "./utils/motion";
-import phone from "./components/phone.vue";
-import qrCode from "./components/qrCode.vue";
-import regist from "./components/regist.vue";
-import update from "./components/update.vue";
+// import phone from "./components/phone.vue";
+// import qrCode from "./components/qrCode.vue";
+// import regist from "./components/regist.vue";
+// import update from "./components/update.vue";
 import { bg, avatar, currentWeek } from "./utils/static";
 import { operates, thirdParty } from "./utils/enums";
+import { ReImageVerify } from "/@/components/ReImageVerify";
+import { useRenderIcon } from "/@/components/ReIcon/src/hooks";
+import { ref } from "vue";
+
+const imgCode = ref("");
 </script>
 
 <template>
@@ -19,19 +24,36 @@ import { operates, thirdParty } from "./utils/enums";
       <div class="login-form">
         <avatar class="avatar" />
         <Motion> <h2>Huohuo Admin</h2></Motion>
-        <el-form>
+        <el-form size="large">
           <Motion :delay="100">
             <el-form-item
-              ><el-input clearable placeholder="账号" /></el-form-item
+              ><el-input
+                clearable
+                placeholder="账号"
+                :prefix-icon="useRenderIcon('user')" /></el-form-item
           ></Motion>
           <Motion :delay="150"
             ><el-form-item
-              ><el-input clearable placeholder="密码" /></el-form-item
+              ><el-input
+                clearable
+                show-password
+                placeholder="密码"
+                :prefix-icon="useRenderIcon('lock')" /></el-form-item
           ></Motion>
           <Motion :delay="200">
             <el-form-item
-              ><el-input clearable placeholder="验证码"
-            /></el-form-item>
+              ><el-input
+                clearable
+                placeholder="验证码"
+                :prefix-icon="
+                  useRenderIcon('ri:shield-keyhole-line', { online: true })
+                "
+              >
+                <template v-slot:append>
+                  <ReImageVerify v-model:code="imgCode" />
+                </template>
+              </el-input>
+            </el-form-item>
           </Motion>
           <Motion :delay="250">
             <el-form-item>
@@ -80,13 +102,13 @@ import { operates, thirdParty } from "./utils/enums";
           </el-form-item>
         </Motion>
         <!-- 手机号登陆 -->
-        <phone />
+        <!-- <phone /> -->
         <!-- 二维码登陆 -->
-        <qrCode />
+        <!-- <qrCode /> -->
         <!-- 注册 -->
-        <regist />
+        <!-- <regist /> -->
         <!-- 忘记密码 -->
-        <update />
+        <!-- <update /> -->
       </div>
     </div>
   </div>
