@@ -42,7 +42,7 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
     },
     plugins: createVitePlugins(VITE_LEGACY),
     optimizeDeps: {
-      include: [],
+      include: ["pinia", "lodash-es"],
       exclude: []
     },
     build: {

@@ -1,17 +1,68 @@
 <!-- 登录页主页 -->
 <script setup lang="ts">
-import Motion from "./utils/motion";
-// import phone from "./components/phone.vue";
-// import qrCode from "./components/qrCode.vue";
-// import regist from "./components/regist.vue";
-// import update from "./components/update.vue";
-import { bg, avatar, currentWeek } from "./utils/static";
+import { useRouter } from "vue-router";
+import { loginRules } from "./utils/rule";
+import type { FormInstance } from "element-plus";
+import { storageSession } from "/@/utils/storage";
+import { ref, reactive, watch, computed } from "vue";
 import { operates, thirdParty } from "./utils/enums";
+import { useUserStoreHook } from "/@/store/modules/user";
+import { bg, avatar, currentWeek } from "./utils/static";
 import { ReImageVerify } from "/@/components/ReImageVerify";
 import { useRenderIcon } from "/@/components/ReIcon/src/hooks";
-import { ref } from "vue";
+
+import Motion from "./utils/motion";
+import phone from "./components/phone.vue";
+import qrCode from "./components/qrCode.vue";
+import regist from "./components/regist.vue";
+import update from "./components/update.vue";
+import { ElMessage } from "element-plus";
 
 const imgCode = ref("");
+const router = useRouter();
+const loading = ref(false);
+const checked = ref(false);
+const ruleFormRef = ref<FormInstance>();
+const currentPage = computed(() => {
+  return useUserStoreHook().currentPage;
+});
+
+const ruleForm = reactive({
+  username: "admin",
+  password: "admin123",
+  verifyCode: ""
+});
+
+const onLogin = async (formEl: FormInstance | undefined) => {
+  loading.value = true;
+  if (!formEl) return;
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      // 模拟请求，需根据实际开发进行修改
+      setTimeout(() => {
+        loading.value = false;
+        storageSession.setItem("info", {
+          username: "admin",
+          accessToken: "eyJhbGciOiJIUzUxMiJ9.test"
+        });
+        // initRouter("admin").then(() => {});
+        ElMessage.success("登陆成功");
+        router.push("/");
+      }, 2000);
+    } else {
+      loading.value = false;
+      return fields;
+    }
+  });
+};
+
+function onHandle(value) {
+  useUserStoreHook().SET_CURRENTPAGE(value);
+}
+
+watch(imgCode, value => {
+  useUserStoreHook().SET_VERIFYCODE(value);
+});
 </script>
 
 <template>
@@ -24,27 +75,36 @@ const imgCode = ref("");
       <div class="login-form">
         <avatar class="avatar" />
         <Motion> <h2>Huohuo Admin</h2></Motion>
-        <el-form size="large">
+        <el-form
+          v-if="currentPage === 0"
+          size="large"
+          ref="ruleFormRef"
+          :model="ruleForm"
+          :rules="loginRules"
+        >
           <Motion :delay="100">
-            <el-form-item
+            <el-form-item prop="username"
               ><el-input
                 clearable
                 placeholder="账号"
+                v-model="ruleForm.username"
                 :prefix-icon="useRenderIcon('user')" /></el-form-item
           ></Motion>
           <Motion :delay="150"
-            ><el-form-item
+            ><el-form-item prop="password"
               ><el-input
                 clearable
                 show-password
                 placeholder="密码"
+                v-model="ruleForm.password"
                 :prefix-icon="useRenderIcon('lock')" /></el-form-item
           ></Motion>
           <Motion :delay="200">
-            <el-form-item
+            <el-form-item prop="verifyCode"
               ><el-input
                 clearable
                 placeholder="验证码"
+                v-model="ruleForm.verifyCode"
                 :prefix-icon="
                   useRenderIcon('ri:shield-keyhole-line', { online: true })
                 "
@@ -58,10 +118,22 @@ const imgCode = ref("");
           <Motion :delay="250">
             <el-form-item>
               <div class="w-full h-20px flex justify-between items-center">
-                <el-checkbox>记住密码</el-checkbox>
-                <el-button text type="primary"> 忘记密码? </el-button>
+                <el-checkbox v-model="checked">记住密码</el-checkbox>
+                <el-button
+                  text
+                  type="primary"
+                  @click="useUserStoreHook().SET_CURRENTPAGE(4)"
+                >
+                  忘记密码?
+                </el-button>
               </div>
-              <el-button class="w-full mt-4" size="default" type="primary">
+              <el-button
+                class="w-full mt-4"
+                size="default"
+                type="primary"
+                :loading="loading"
+                @click="onLogin(ruleFormRef)"
+              >
                 登录
               </el-button>
             </el-form-item>
@@ -74,6 +146,7 @@ const imgCode = ref("");
                   :key="index"
                   class="w-full mt-4"
                   size="default"
+                  @click="onHandle(index + 1)"
                 >
                   {{ item.title }}
                 </el-button>
@@ -81,7 +154,7 @@ const imgCode = ref("");
             </el-form-item>
           </Motion>
         </el-form>
-        <Motion :delay="350">
+        <Motion v-if="currentPage === 0" :delay="350">
           <el-form-item>
             <el-divider>
               <p class="text-gray-500 text-xs">第三方登录</p>
@@ -102,13 +175,13 @@ const imgCode = ref("");
           </el-form-item>
         </Motion>
         <!-- 手机号登陆 -->
-        <!-- <phone /> -->
+        <phone v-if="currentPage === 1" />
         <!-- 二维码登陆 -->
-        <!-- <qrCode /> -->
+        <qrCode v-if="currentPage === 2" />
         <!-- 注册 -->
-        <!-- <regist /> -->
+        <regist v-if="currentPage === 3" />
         <!-- 忘记密码 -->
-        <!-- <update /> -->
+        <update v-if="currentPage === 4" />
       </div>
     </div>
   </div>
@@ -116,4 +189,8 @@ const imgCode = ref("");
 
 <style lang="scss" scoped>
 @import url("/@/style/login.css");
+
+:deep(.el-input-group__append, .el-input-group__prepend) {
+  padding: 0;
+}
 </style>
