@@ -10,8 +10,7 @@ import { configLegacyPlugin } from "./legacy";
 export function createVitePlugins(VITE_LEGACY) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [
     // 直接引入的配置
-    vue(),
-    DefineOptions()
+    vue()
   ];
 
   // vite-plugin-windicss
@@ -19,6 +18,9 @@ export function createVitePlugins(VITE_LEGACY) {
 
   // svg组件化支持
   vitePlugins.push(svgLoader());
+
+  // unplugin-vue-define-options
+  vitePlugins.push(DefineOptions());
 
   // 需要做额外配置的插件
   vitePlugins.push(configLegacyPlugin(VITE_LEGACY));

@@ -20,7 +20,6 @@
     "lib": ["dom", "esnext"],
     "incremental": true,
     "paths": {
-      // 别名配置
       "/@/*": ["src/*"],
       "@build/*": ["build/*"],
       "/#/*": ["types/*"]
