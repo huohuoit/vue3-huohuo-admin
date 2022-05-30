@@ -17,7 +17,7 @@ const alias: Record<string, string> = {
   "@build": pathResolve("build")
 };
 
-export default ({ mode }: ConfigEnv): UserConfigExport => {
+export default ({ command, mode }: ConfigEnv): UserConfigExport => {
   // 根据当前工作目录中的 `mode` 加载 .env 文件
   const env = loadEnv(mode, root);
   // env中所有值都是string类型，处理需要兼容其他类型的情况。并提取需要的环境变量
@@ -40,7 +40,7 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       host: "0.0.0.0",
       proxy: createProxy(VITE_PROXY_DOMAIN, VITE_PROXY_DOMAIN_REAL)
     },
-    plugins: createVitePlugins(VITE_LEGACY),
+    plugins: createVitePlugins(command, VITE_LEGACY),
     optimizeDeps: {
       include: ["pinia", "lodash-es"],
       exclude: []

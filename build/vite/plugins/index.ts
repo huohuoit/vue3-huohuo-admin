@@ -7,8 +7,9 @@ import DefineOptions from "unplugin-vue-define-options/vite";
 
 // 引入其他需要做额外配置的插件
 import { configLegacyPlugin } from "./legacy";
+import { configMockPlugin } from "./mock";
 
-export function createVitePlugins(VITE_LEGACY) {
+export function createVitePlugins(command, VITE_LEGACY) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [
     // 直接引入的配置
     vue(),
@@ -18,6 +19,9 @@ export function createVitePlugins(VITE_LEGACY) {
 
   // vite-plugin-windicss
   vitePlugins.push(windiCSS());
+
+  // vite-plugin-mock
+  vitePlugins.push(configMockPlugin(command));
 
   // svg组件化支持
   vitePlugins.push(svgLoader());
